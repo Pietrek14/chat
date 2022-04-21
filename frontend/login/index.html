@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chat</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="../scripts/tailwind.config.js"></script>
+	<link rel="stylesheet" type="text/tailwindcss" href="../style/style.css">
+</head>
+
+<body>
+	<header class="flex bg-primary p-8 justify-center sm:justify-start">
+		<h1 class="text-5xl text-white">chat</h1>
+	</header>
+
+	<main class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+		<form id="login-form" class="flex flex-col items-center justify-center gap-8">
+			<h5 class="text-5xl text-gray mb-8">log in</h5>
+			<div class="flex flex-col gap-2 items-center justify-center">
+				<input type="text" class="border px-4 py-2" placeholder="email"/>
+				<input type="password" class="border px-4 py-2" placeholder="password"/>
+			</div>
+			<div class="flex flex-col gap-6">
+				<button type="submit" class="bg-primary text-white px-10 py-2">submit</button>
+				<div class="flex flex-col justify-center items-center">
+					<span>no account? <a href="../register/" class="link">ok</a></span>
+					<span>forgot your password? <a href="../password-reset/" class="link">remember</a></span>
+				</div>
+			</div>
+		</form>
+	</main>
+</body>
+
+</html>

@@ -17,16 +17,17 @@
 
 		<main class="flex-grow flex items-center justify-center py-16">
 			<form id="login-form" class="flex flex-col items-center justify-center gap-4 md:gap-6">
-				<h5 class="text-5xl md:text-6xl text-gray mb-4 md:mb-8">log in</h5>
+				<h5 class="text-5xl md:text-6xl text-gray mb-4 md:mb-8">register</h5>
 				<div class="flex flex-col gap-2 items-center justify-center">
 					<input type="email" id="email" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="email"/>
+					<input type="text" id="login" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="login"/>
 					<input type="password" id="password" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="password"/>
+					<input type="password" id="repeat-password" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="repeat password"/>
 				</div>
 				<div class="flex flex-col gap-3 md:gap-6 w-100 items-center justify-center">
 					<button type="submit" class="bg-primary text-white px-5 md:px-10 py-1">submit</button>
 					<div class="flex flex-col justify-center items-center text-xs md:text-sm">
-						<span>no account? <a href="../register/" class="link">register</a></span>
-						<span>forgot your password? <a href="../password-reset/" class="link">remember</a></span>
+						<span>yes account? <a href="../login/" class="link">log in</a></span>
 					</div>
 				</div>
 			</form>

@@ -1,0 +1,10 @@
+USE `chat`;
+
+CREATE TABLE IF NOT EXISTS session (
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	hash CHAR(128) NOT NULL UNIQUE,
+	expiry DATETIME NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY (user_id) REFERENCES user(id)
+);

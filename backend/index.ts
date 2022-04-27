@@ -1,4 +1,4 @@
-import { Application } from "./deps.ts";
+import { Application, config } from "./deps.ts";
 
 // MIDDLEWARE
 import json from "./middleware/json.ts";
@@ -6,13 +6,20 @@ import json from "./middleware/json.ts";
 // ROUTER
 import helloRouter from "./routes/hello.ts";
 
-const env = Deno.env.toObject()
-const PORT = env.PORT || 3000;
-const HOST = env.HOST || 'localhost';
+const PORT = config().PORT || 3000;
+const HOST = config().HOST || "localhost";
 
 const app = new Application();
 
 app.use(json);
+
+import client from "./connection/db.ts";
+
+const queryWithParams = await client.query(
+	"select ??,email from ?? where id = ?",
+	["id", "user", 1]
+);
+console.log(queryWithParams);
 
 app.use(helloRouter.routes());
 app.use(helloRouter.allowedMethods());

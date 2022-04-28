@@ -13,14 +13,6 @@ const app = new Application();
 
 app.use(json);
 
-import client from "./connection/db.ts";
-
-const queryWithParams = await client.query(
-	"select ??,email from ?? where id = ?",
-	["id", "user", 1]
-);
-console.log(queryWithParams);
-
 app.use(helloRouter.routes());
 app.use(helloRouter.allowedMethods());
 

@@ -1,5 +1,6 @@
 import { Router } from "../deps.ts";
 import User from "../models/user.ts";
+import Session from "../models/session.ts";
 
 const loginRouter = new Router();
 
@@ -20,15 +21,20 @@ loginRouter.post("/login", async (ctx: any) => {
 		return;
 	}
 
-	const hash = await User.hashPassword(password, user.salt);
+	// const hash = await User.hashPassword(password, user.salt);
 
-	if (hash !== user.hash) {
-		ctx.response.status = 401;
-		ctx.response.body = { message: "Invalid password" };
-		return;
-	}
+	// if (hash !== user.hash) {
+		console.log("no");
+		// ctx.response.status = 401;
+		// ctx.response.body = { message: "Invalid password" };
+		// return;
+	// }
 
 	// Register a session
+	const session = await Session.add({
+		user_id: user.id,
+		expiry: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+	});
 
 	ctx.response.body = {
 		message: "Login successful",
@@ -38,6 +44,7 @@ loginRouter.post("/login", async (ctx: any) => {
 			username: user.username,
 			signup_date: user.signup_date,
 		},
+		session: session
 	};
 });
 

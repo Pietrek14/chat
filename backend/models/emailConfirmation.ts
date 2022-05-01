@@ -63,6 +63,6 @@ export default {
 	},
 
 	getLink(code: string) {
-		return `${config().HOST}:${config().PORT}/confirm?code=${code}`;
+		return `${config().FRONTEND}/confirm?code=${code}`;
 	}
 };

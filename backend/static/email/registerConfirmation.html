@@ -5,9 +5,76 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Confirm your email</title>
+	<style>
+		.body {
+			margin: 0;
+
+			font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+			text-align: center;
+
+			width: 400px;
+		}
+
+		header {
+			background-color: #1DA513;
+			text-align: center;
+			font-size: 45px;
+			color: white;
+			width: 100%;
+			height: 125px;
+			margin-bottom: 100px;
+		}
+
+		h1 {
+			margin: 0;
+			font-weight: normal;
+			text-align: center;
+		}
+
+		h2 {
+			width: 100%;
+			margin: 50px 0 25px 0;
+			font-size: 32px;
+			font-weight: normal;
+			text-align: center;
+		}
+
+		.button {
+			margin: auto;
+			display: block;
+			width: 150px;
+			height: 50px;
+			text-align: center;
+			background-color: #1da513;
+			color: white;
+			text-decoration: none;
+			font-size: 27px;
+			margin-bottom: 15px;
+		}
+
+		.button:hover {
+			background-color: #0d9503;
+			color: white;
+		}
+
+		.some-text {
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
-	<h1>confirm that you created an account</h1>
-	<a href="{link}">i did</a>
+	<div class="body">
+		<header>
+			<h1>chat</h1>
+		</header>
+		<div class="content">
+			<h2>confirm account creation</h2>
+			<div class="funny">
+				<a href="{{link}}" target="_blank" class="button">i did</a>
+				<p class="some-text">if you didn't create an account, ignore this email</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

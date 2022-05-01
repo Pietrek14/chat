@@ -34,11 +34,13 @@ registerRouter.post("/register", async (ctx: any) => {
 
 	const link = EmailConfirmation.getLink(code);
 
+	const emailBody = (await Deno.readTextFile("static/email/registerConfirmation.html")).replace("{{link}}", link);
+
 	emailClient.send({
 		from: config().EMAIL_USER,
 		to: email,
 		subject: "Confirm your email",
-		content: `Please confirm your email by clicking on the following link: ${link}`,
+		html: emailBody,
 	});
 
 	ctx.response.body = {

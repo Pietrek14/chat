@@ -1,4 +1,4 @@
-import { Router } from "../deps.ts";
+import { Router, bcrypt } from "../deps.ts";
 import User from "../models/user.ts";
 import Session from "../models/session.ts";
 
@@ -9,7 +9,7 @@ loginRouter.post("/login", async (ctx: any) => {
 
 	if (!email || !password) {
 		ctx.response.status = 400;
-		ctx.response.body = { message: "Invalid request body" };
+		ctx.response.body = { message: "Invalid request body. I need { email, password }" };
 		return;
 	}
 
@@ -21,9 +21,7 @@ loginRouter.post("/login", async (ctx: any) => {
 		return;
 	}
 
-	const hash = await User.hashPassword(password, user.salt);
-
-	if (hash !== user.hash) {
+	if (!(await bcrypt.compare(password, user.hash))) {
 		ctx.response.status = 401;
 		ctx.response.body = { message: "Invalid password" };
 		return;
@@ -43,7 +41,7 @@ loginRouter.post("/login", async (ctx: any) => {
 			username: user.username,
 			signup_date: user.signup_date,
 		},
-		session: session
+		token: session
 	};
 });
 

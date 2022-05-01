@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat</title>
 	<link rel="stylesheet" href="../style/dist/style.css">
+	<script src="script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -19,8 +20,8 @@
 			<form id="login-form" class="flex flex-col items-center justify-center gap-4 md:gap-6">
 				<h5 class="text-5xl md:text-6xl text-gray mb-4 md:mb-8">log in</h5>
 				<div class="flex flex-col gap-2 items-center justify-center">
-					<input type="email" id="email" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="email"/>
-					<input type="password" id="password" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="password"/>
+					<input type="email" id="email-input" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="email" required/>
+					<input type="password" id="password-input" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="password" required/>
 				</div>
 				<div class="flex flex-col gap-3 md:gap-6 w-100 items-center justify-center">
 					<button type="submit" class="bg-primary text-white px-5 md:px-10 py-1">submit</button>

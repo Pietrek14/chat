@@ -1,5 +1,6 @@
-export default interface User {
+export default interface EmailConfirmation {
 	id?: number,
+	code?: string,
 	email?: string,
 	username?: string,
 	hash?: string,

@@ -30,14 +30,23 @@ export default {
 		return result[0];
 	},
 
+	getIdByEmailWithEmailConfirmation: async (email: string) => {
+		const result = await dbClient.query(
+			'SELECT id, "user" AS "role" FROM user WHERE email = ? UNION SELECT id, "email_confirmation" AS "role" FROM email_confirmation WHERE email = ?',
+			[email, email]
+		);
+
+		return result[0];
+	},
+
 	/**
 	 * Add a new user to the database.
 	 * @param user
 	 */
-	add: async ({ email, username, hash, salt, signup_date }: User) => {
+	add: async ({ email, username, hash, signup_date }: User) => {
 		const result = await dbClient.execute(
-			`INSERT INTO user (email, username, hash, salt, signup_date) VALUES (?, ?, ?, ?, ?)`,
-			[email, username, hash, salt, signup_date]
+			`INSERT INTO user (email, username, hash, signup_date) VALUES (?, ?, ?, ?)`,
+			[email, username, hash, signup_date]
 		);
 
 		return result;
@@ -50,7 +59,13 @@ export default {
 	 * @returns The hashed password.
 	 */
 	hashPassword: async (password: string, salt: string) => {
-		const hash = await bcrypt.hash(password, salt);
+		let hash;
+
+		try {
+			hash = await bcrypt.hash(password, salt);
+		} catch(e) {
+			console.log(e);
+		}
 
 		return hash;
 	},

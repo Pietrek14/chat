@@ -1,5 +1,5 @@
 import Session from "../interfaces/Session.ts";
-import { bcrypt } from "../deps.ts";
+import { nanoid } from "../deps.ts";
 import dbClient from "../connection/db.ts";
 
 export default {
@@ -41,7 +41,7 @@ export default {
 		let hash, session;
 
 		do {
-			hash = await bcrypt.genSalt();
+			hash = nanoid(16);
 			session = await dbClient.query(`SELECT * FROM session WHERE hash = ?`, [hash]);
 		} while(session[0]);
 

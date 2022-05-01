@@ -14,6 +14,12 @@ registerRouter.post("/register", async (ctx: any) => {
 		return;
 	}
 
+	if(password.length < 8) {
+		ctx.response.status = 406;
+		ctx.response.body = { message: "Password must be at least 8 characters long." };
+		return;
+	}
+
 	const user = await User.getIdByEmailWithEmailConfirmation(email);
 
 	if (user) {

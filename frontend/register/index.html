@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat</title>
 	<link rel="stylesheet" href="../style/dist/style.css">
+	<script src="script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -16,16 +17,16 @@
 		</header>
 
 		<main class="flex-grow flex items-center justify-center py-16">
-			<form id="login-form" class="flex flex-col items-center justify-center gap-4 md:gap-6">
+			<form id="register-form" class="flex flex-col items-center justify-center gap-4 md:gap-6">
 				<h5 class="text-5xl md:text-6xl text-gray mb-4 md:mb-8">register</h5>
 				<div class="flex flex-col gap-2 items-center justify-center">
-					<input type="email" id="email" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="email"/>
-					<input type="text" id="login" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="login"/>
-					<input type="password" id="password" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="password"/>
-					<input type="password" id="repeat-password" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="repeat password"/>
+					<input type="email" id="email-input" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="email" required/>
+					<input type="text" id="login-input" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="login" required/>
+					<input type="password" id="password-input" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="password" minlength="8" required/>
+					<input type="password" id="password-confirm-input" class="border px-2 md:px-4 py-1 md:py-1.5" placeholder="confirm password" minlength="8" required/>
 				</div>
 				<div class="flex flex-col gap-3 md:gap-6 w-100 items-center justify-center">
-					<button type="submit" class="bg-primary text-white px-5 md:px-10 py-1">submit</button>
+					<button type="submit" class="bg-primary hover:bg-dark text-white px-5 md:px-10 py-1">submit</button>
 					<div class="flex flex-col justify-center items-center text-xs md:text-sm">
 						<span>yes account? <a href="../login/" class="link">log in</a></span>
 					</div>

@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS email_confirmation (
 	username VARCHAR(255) NOT NULL,
 	hash CHAR(60) NOT NULL,
 	signup_date DATETIME NOT NULL,
+	last_email DATETIME NOT NULL,
 	PRIMARY KEY(id)
 );

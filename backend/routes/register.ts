@@ -1,7 +1,6 @@
 import { Router, bcrypt, config } from "../deps.ts";
 import User from "../models/user.ts";
 import EmailConfirmation from "../models/emailConfirmation.ts";
-import emailClient from "../connection/email.ts";
 
 const registerRouter = new Router();
 
@@ -38,16 +37,7 @@ registerRouter.post("/register", async (ctx: any) => {
 		signup_date: new Date(),
 	});
 
-	const link = EmailConfirmation.getLink(code);
-
-	const emailBody = (await Deno.readTextFile("static/email/registerConfirmation.html")).replace("{{link}}", link);
-
-	emailClient.send({
-		from: config().EMAIL_USER,
-		to: email,
-		subject: "Confirm your email",
-		html: emailBody,
-	});
+	await EmailConfirmation.sendMail(email, code);
 
 	ctx.response.body = {
 		message: "Waiting for email confirmation",

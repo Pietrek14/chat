@@ -5,4 +5,5 @@ export default interface EmailConfirmation {
 	username?: string,
 	hash?: string,
 	signup_date?: Date,
+	last_email?: Date,
 }

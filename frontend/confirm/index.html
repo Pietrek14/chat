@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chat</title>
 	<link rel="stylesheet" href="../style/dist/style.css">
+	<script src="script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -18,8 +19,9 @@
 		</header>
 
 		<main class="flex-grow flex flex-col items-center justify-center py-16 gap-8 md:gap-16">
-			<h5 class="text-2xl md:text-4xl text-center text-gray">check your email inbox</h5>
-			<button id="resend-email-button" class="bg-primary hover:bg-dark text-white px-5 md:px-10 py-2">i didn't receive an email</button>
+			<h5 class="text-3xl md:text-5xl text-center text-gray">account confirmation</h5>
+			<p id="output" class="text-center"></p>
+			<a href="../login/" class="bg-primary hover:bg-dark text-white px-5 md:px-10 py-2">go to login page</a>
 		</main>
 
 		<footer class="flex justify-center items-center px-8 py-4 bg-primary">

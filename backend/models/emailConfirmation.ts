@@ -1,8 +1,11 @@
 import EmailConfirmation from '../interfaces/EmailConfirmation.ts';
 import dbClient from "../connection/db.ts";
+import emailClient from "../connection/email.ts";
 import { config, nanoid } from "../deps.ts";
 
 export default {
+	resendDelay: 5 * 60 * 1000, // 5 minutes
+
 	/**
 	 * Searches for a email confirmation with the given id.
 	 * @param id Id to be searched for.
@@ -47,7 +50,7 @@ export default {
 		const code = nanoid(16);
 
 		await dbClient.execute(
-			`INSERT INTO email_confirmation (code, email, username, hash, signup_date) VALUES (?, ?, ?, ?, ?)`,
+			`INSERT INTO email_confirmation (code, email, username, hash, signup_date, last_email) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
 			[code, email, username, hash, signup_date]
 		);
 
@@ -64,5 +67,24 @@ export default {
 
 	getLink(code: string) {
 		return `${config().FRONTEND}/confirm?code=${code}`;
-	}
+	},
+
+	sendMail: async(receiverEmail: string, code: string) => {
+		const link = `${config().FRONTEND}/confirm/?code=${code}`;
+
+		const emailBody = (await Deno.readTextFile("static/email/registerConfirmation.html")).replace("{{link}}", link);
+
+		await emailClient.send({
+			from: config().EMAIL_USER,
+			to: receiverEmail,
+			subject: "Confirm your email",
+			html: emailBody,
+		});
+
+		// update the last email date
+		await dbClient.execute(
+			`UPDATE email_confirmation SET last_email_date = CURRENT_TIMESTAMP WHERE email = ?`,
+			[receiverEmail]
+		);
+	},
 };

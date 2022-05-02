@@ -34,7 +34,10 @@ window.onload = () => {
 
 		const response = await request.json();
 
+		console.log(request.status);
+
 		if(request.status === 409) {
+			console.log(response.substatus);
 			if(response.substatus === 0) {
 				alert('email already exists');
 			} else {

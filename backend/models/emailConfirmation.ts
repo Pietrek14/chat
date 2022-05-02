@@ -74,7 +74,7 @@ export default {
 
 		const emailBody = (await Deno.readTextFile("static/email/registerConfirmation.html")).replace("{{link}}", link);
 
-		await emailClient.send({
+		emailClient.send({
 			from: config().EMAIL_USER,
 			to: receiverEmail,
 			subject: "Confirm your email",
@@ -83,7 +83,7 @@ export default {
 
 		// update the last email date
 		await dbClient.execute(
-			`UPDATE email_confirmation SET last_email_date = CURRENT_TIMESTAMP WHERE email = ?`,
+			`UPDATE email_confirmation SET last_email = CURRENT_TIMESTAMP WHERE email = ?`,
 			[receiverEmail]
 		);
 	},

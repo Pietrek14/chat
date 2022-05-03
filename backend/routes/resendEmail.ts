@@ -23,6 +23,7 @@ resendEmailRouter.post("/resendEmail", async (ctx: any) => {
 	}
 
 	console.log(emailConfirmation.last_email.getTime());
+	console.log(new Date().getTime());
 
 	const delay = emailConfirmation.last_email.getTime() + EmailConfirmation.resendDelay - new Date().getTime();
 

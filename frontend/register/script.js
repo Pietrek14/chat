@@ -48,7 +48,7 @@ window.onload = () => {
 		}
 		
 		if(request.status === 200) {
-			window.location.href = `../after-register?email=${email}`;
+			window.location.href = `../after-register/?email=${email}`;
 			return;
 		}
 

@@ -50,8 +50,8 @@ export default {
 		const code = nanoid(16);
 
 		await dbClient.execute(
-			`INSERT INTO email_confirmation (code, email, username, hash, signup_date, last_email) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
-			[code, email, username, hash, signup_date]
+			`INSERT INTO email_confirmation (code, email, username, hash, signup_date, last_email) VALUES (?, ?, ?, ?, ?, ?)`,
+			[code, email, username, hash, signup_date, new Date()]
 		);
 
 		return code;
@@ -83,8 +83,8 @@ export default {
 
 		// update the last email date
 		await dbClient.execute(
-			`UPDATE email_confirmation SET last_email = CURRENT_TIMESTAMP WHERE email = ?`,
-			[receiverEmail]
+			`UPDATE email_confirmation SET last_email = ? WHERE email = ?`,
+			[new Date(), receiverEmail]
 		);
 	},
 };

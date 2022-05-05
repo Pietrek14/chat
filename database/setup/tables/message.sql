@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS message (
 	FOREIGN KEY (author) REFERENCES user(id),
 	FOREIGN KEY (recipent) REFERENCES user(id),
 	FOREIGN KEY (reply) REFERENCES message(id),
-	ADD CONSTRAINT CK_message_self CHECK (author <> recipent)	/* not tested, may not work */
+	CONSTRAINT CK_message_self CHECK (author <> recipent)	/* not tested, may not work */
 );

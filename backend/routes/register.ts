@@ -1,10 +1,10 @@
-import { Router, bcrypt, config } from "../deps.ts";
+import { Router, bcrypt } from "../deps.ts";
 import User from "../models/user.ts";
 import EmailConfirmation from "../models/emailConfirmation.ts";
 
 const registerRouter = new Router();
 
-registerRouter.post("/register", async (ctx: any) => {
+registerRouter.post("/register", async (ctx) => {
 	const { email, username, password } = await ctx.request.body().value;
 
 	if (!email || !username || !password) {

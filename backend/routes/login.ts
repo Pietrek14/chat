@@ -4,7 +4,7 @@ import Session from "../models/session.ts";
 
 const loginRouter = new Router();
 
-loginRouter.post("/login", async (ctx: any) => {
+loginRouter.post("/login", async (ctx) => {
 	const { email, password } = await ctx.request.body().value;
 
 	if (!email || !password) {
@@ -41,8 +41,9 @@ loginRouter.post("/login", async (ctx: any) => {
 			username: user.username,
 			signup_date: user.signup_date,
 		},
-		token: session
 	};
+
+	await ctx.cookies.set('session', session);
 });
 
 export default loginRouter;

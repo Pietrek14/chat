@@ -10,6 +10,7 @@ import loginRouter from "./routes/login.ts";
 import registerRouter from "./routes/register.ts";
 import confirmEmailRouter from "./routes/confirmEmail.ts";
 import resendEmailRouter from "./routes/resendEmail.ts";
+import sayNameRouter from "./routes/sayName.ts";
 
 const PORT = config().PORT || 3000;
 const HOST = config().HOST || "localhost";
@@ -20,15 +21,11 @@ app.use(oakCors());
 app.use(json);
 
 app.use(helloRouter.routes());
-app.use(helloRouter.allowedMethods());
 app.use(loginRouter.routes());
-app.use(loginRouter.allowedMethods());
 app.use(registerRouter.routes());
-app.use(registerRouter.allowedMethods());
 app.use(confirmEmailRouter.routes());
-app.use(confirmEmailRouter.allowedMethods());
 app.use(resendEmailRouter.routes());
-app.use(resendEmailRouter.allowedMethods());
+app.use(sayNameRouter.routes());
 
 console.log(`Server running at ${HOST}:${PORT}`);
 

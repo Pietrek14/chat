@@ -4,7 +4,7 @@ import EmailConfirmation from "../models/emailConfirmation.ts";
 
 const confirmEmailRouter = new Router();
 
-confirmEmailRouter.post("/confirmEmail", async (ctx: any) => {
+confirmEmailRouter.post("/confirmEmail", async (ctx) => {
 	const { code } = await ctx.request.body().value;
 
 	if (!code) {

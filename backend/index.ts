@@ -11,6 +11,7 @@ import registerRouter from "./routes/register.ts";
 import confirmEmailRouter from "./routes/confirmEmail.ts";
 import resendEmailRouter from "./routes/resendEmail.ts";
 import sayNameRouter from "./routes/sayName.ts";
+import inviteFriendRouter from './routes/inviteFriend.ts';
 
 const PORT = config().PORT || 3000;
 const HOST = config().HOST || "localhost";
@@ -26,6 +27,7 @@ app.use(registerRouter.routes());
 app.use(confirmEmailRouter.routes());
 app.use(resendEmailRouter.routes());
 app.use(sayNameRouter.routes());
+app.use(inviteFriendRouter.routes());
 
 console.log(`Server running at ${HOST}:${PORT}`);
 

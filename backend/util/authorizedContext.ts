@@ -1,5 +1,5 @@
 import { Context } from '../deps.ts';
-import User from '../interfaces/user.ts';
+import User from '../interfaces/User.ts';
 
 class AuthorizedContext extends Context {
 	user?: User;

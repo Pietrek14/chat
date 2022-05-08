@@ -1,4 +1,4 @@
-import User from "../interfaces/user.ts";
+import User from "../interfaces/User.ts";
 import { bcrypt } from "../deps.ts";
 import dbClient from "../connection/db.ts";
 

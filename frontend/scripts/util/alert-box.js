@@ -31,7 +31,6 @@ alertBox.onmouseleave = () => {
 };
 
 function closeAlertBoxOnClick() {
-	console.log(mouseOverAlertBox);
 	if (!mouseOverAlertBox) {
 		alertBoxClose();
 	}
@@ -52,7 +51,6 @@ function alertBoxClose() {
 }
 
 function alert(message) {
-	console.log(message);
 	alertBoxContent.innerHTML = message;
 	alertBox.classList.add("alert-box-active");
 

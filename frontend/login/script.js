@@ -14,6 +14,7 @@ window.onload = () => {
 
 		const request = await fetch(`${config.apiUrl}/login`, {
 			method: "POST",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -25,11 +26,7 @@ window.onload = () => {
 
 		switch (request.status) {
 			case 200: {
-				const response = await request.json();
-				const { token } = response;
-
-				localStorage.setItem("token", token);
-				window.location.href = "/";
+				window.location.assign("../");
 
 				break;
 			}

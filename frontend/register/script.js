@@ -1,4 +1,5 @@
 import config from "../config.js";
+import alert from "../scripts/util/alert-box.js";
 
 window.onload = () => {
 	const form = document.getElementById('register-form');

@@ -6,4 +6,8 @@
 	.link {
 		@apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600;
 	}
+
+	.alert-box-active {
+		@apply top-1/2 translate-y-[-50%] opacity-100 !important;
+	}
 }

@@ -1,4 +1,5 @@
 import config from "../config.js";
+import alert from "../scripts/util/alert-box.js";
 
 const params = new URLSearchParams(window.location.search);
 const email = params.get('email');
@@ -28,5 +29,7 @@ window.onload = () => {
 		if (request.status === 409) {
 			alert(`you have to wait ${Math.floor(response.timeLeft)} seconds more before you can resend the email`);
 		}
+
+		alert('something went wrong');
 	};
 };

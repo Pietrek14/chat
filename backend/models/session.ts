@@ -62,7 +62,7 @@ export default {
 	},
 
 	getUserByHash: async (hash: string) => {
-		const result = await dbClient.query(`SELECT * FROM user u INNER JOIN session s ON s.user_id=u.id WHERE s.hash = ?`, [
+		const result = await dbClient.query(`SELECT u.id AS id, u.email AS email, u.username AS username, u.hash AS hash, u.signup_date AS signup_date FROM user u INNER JOIN session s ON s.user_id=u.id WHERE s.hash = ?`, [
 			hash,
 		]);
 

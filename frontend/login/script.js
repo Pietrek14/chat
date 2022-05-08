@@ -1,4 +1,5 @@
 import config from "../config.js";
+import alert from "../scripts/util/alert-box.js";
 
 window.onload = () => {
 	const loginForm = document.getElementById("login-form");
@@ -13,6 +14,7 @@ window.onload = () => {
 
 		const request = await fetch(`${config.apiUrl}/login`, {
 			method: "POST",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -24,11 +26,7 @@ window.onload = () => {
 
 		switch (request.status) {
 			case 200: {
-				const response = await request.json();
-				const { token } = response;
-
-				localStorage.setItem("token", token);
-				window.location.href = "/";
+				window.location.assign("../");
 
 				break;
 			}

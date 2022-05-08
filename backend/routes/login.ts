@@ -33,6 +33,10 @@ loginRouter.post("/login", async (ctx) => {
 		expiry: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
 	});
 
+	await ctx.cookies.set('session', session, {
+		httpOnly: true,
+	});
+
 	ctx.response.body = {
 		message: "Login successful",
 		user: {
@@ -42,8 +46,6 @@ loginRouter.post("/login", async (ctx) => {
 			signup_date: user.signup_date,
 		},
 	};
-
-	await ctx.cookies.set('session', session);
 });
 
 export default loginRouter;

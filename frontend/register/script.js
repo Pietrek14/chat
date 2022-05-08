@@ -1,4 +1,5 @@
 import config from "../config.js";
+import alert from "../scripts/util/alert-box.js";
 
 window.onload = () => {
 	const form = document.getElementById('register-form');
@@ -48,7 +49,7 @@ window.onload = () => {
 		}
 		
 		if(request.status === 200) {
-			window.location.href = `../after-register/?email=${email}`;
+			window.location.assign(`../after-register/?email=${email}`);
 			return;
 		}
 

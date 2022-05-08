@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description"
+		content="Chat is a simple chatting app, where you can connect with your friends and start chatting instantaneously.">
+	<meta name="keywords" content="chat,talk,friends,chatting">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chat</title>
+	<link rel="stylesheet" href="../style/dist/style.css">
+	<script src="scripts/index.js" type="module" defer></script>
+</head>
+
+<body>
+	<div class="flex flex-col justify-between h-screen">
+		<header class="flex bg-primary p-8 justify-between items-center">
+			<h1 class="text-5xl text-white">chat</h1>
+			<div class="flex gap-5 items-center h-full">
+				<a href="../"
+					class="d-inline-block w-12 h-12 bg-cover bg-[url('../../img/message.png')]"></a>
+				<div id="logout"
+					class="d-inline-block w-12 h-12 bg-cover bg-[url('../../img/logout.png')] cursor-pointer"></div>
+			</div>
+		</header>
+
+		<main class="flex-1 flex overflow-hidden">
+			<div id="invites"
+				class="flex flex-col content-start border-r-2 border-r-neutral-300 w-1/4 h-full overflow-y-scroll">
+				<div class="invite flex justify-between p-4 gap-5 border-b-2 border-b-neutral-300">
+					<div class="flex gap-3">
+						<div
+							class="conversation-avatar flex items-center justify-center rounded-full w-10 h-10 bg-green-600">
+						</div>
+						<div class="flex items-center text-sm">
+							<h3 class="font-semibold">Joe</h3>
+						</div>
+					</div>
+					<div class="flex items-center gap-3">
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22.121" height="22.121">
+							<g transform="translate(1.061 1.061)">
+								<line x1="20" y1="0" x2="10" y2="20" fill="none" stroke="#1c1"
+									stroke-width="3" />
+								<line y1="10" x2="10" y2="20" fill="none" stroke="#1c1"
+									stroke-width="3" />
+							</g>
+						</svg>
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22.121" height="22.121">
+							<g transform="translate(1.061 1.061)">
+								<line x1="20" y2="20" fill="none" stroke="#c11"
+									stroke-width="3" />
+								<line x2="20" y2="20" fill="none" stroke="#c11"
+									stroke-width="3" />
+							</g>
+						</svg>
+					</div>
+				</div>
+				<div class="invite flex justify-between p-4 gap-5 border-b-2 border-b-neutral-300">
+					<div class="flex gap-3">
+						<div
+							class="conversation-avatar flex items-center justify-center rounded-full w-10 h-10 bg-green-600">
+						</div>
+						<div class="flex items-center text-sm">
+							<h3 class="font-semibold">Joe</h3>
+						</div>
+					</div>
+					<div class="flex items-center gap-3">
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22.121" height="22.121">
+							<g transform="translate(1.061 1.061)">
+								<line x1="20" y1="0" x2="10" y2="20" fill="none" stroke="#1c1"
+									stroke-width="3" />
+								<line y1="10" x2="10" y2="20" fill="none" stroke="#1c1"
+									stroke-width="3" />
+							</g>
+						</svg>
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22.121" height="22.121">
+							<g transform="translate(1.061 1.061)">
+								<line x1="20" y2="20" fill="none" stroke="#c11"
+									stroke-width="3" />
+								<line x2="20" y2="20" fill="none" stroke="#c11"
+									stroke-width="3" />
+							</g>
+						</svg>
+					</div>
+				</div>
+				<div class="invite flex justify-between p-4 gap-5 border-b-2 border-b-neutral-300">
+					<div class="flex gap-3">
+						<div
+							class="conversation-avatar flex items-center justify-center rounded-full w-10 h-10 bg-green-600">
+						</div>
+						<div class="flex items-center text-sm">
+							<h3 class="font-semibold">Joe</h3>
+						</div>
+					</div>
+					<div class="flex items-center gap-3">
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22.121" height="22.121">
+							<g transform="translate(1.061 1.061)">
+								<line x1="20" y1="0" x2="10" y2="20" fill="none" stroke="#1c1"
+									stroke-width="3" />
+								<line y1="10" x2="10" y2="20" fill="none" stroke="#1c1"
+									stroke-width="3" />
+							</g>
+						</svg>
+						<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22.121" height="22.121">
+							<g transform="translate(1.061 1.061)">
+								<line x1="20" y2="20" fill="none" stroke="#c11"
+									stroke-width="3" />
+								<line x2="20" y2="20" fill="none" stroke="#c11"
+									stroke-width="3" />
+							</g>
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class="flex-grow relative">
+				<div class="absolute left-0 top-0 right-0 bottom-0 mt-12 pr-5">
+					<div class="flex flex-col justify-center items-center gap-12 w-full h-full">
+						<div class="flex flex-col items-center gap-7 w-full">
+							<h2 class="text-center text-4xl text-neutral-700 font-medium">invite yourself a friend</h2>
+							<div class="border-b-[5px] border-primary w-8/12"></div>
+						</div>
+						<form id="search-form" class="w-3/5 h-8">
+							<input type="text" id="search-bar" class="w-full h-full text-center border text-sm"
+								placeholder="friend goes here">
+						</form>
+						<div class="flex-1 w-2/5 flex flex-col items-center gap-4 overflow-y-auto">
+							<div class="flex-shrink-0 relative w-3/5 h-24 border">
+								<span class="absolute top-2 left-8">guy</span>
+								<span class="absolute bottom-3 left-1/2 translate-x-[-50%]">guy@guymail.com</span>
+								<button class="absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white">invite</button>
+							</div>
+							<div class="flex-shrink-0 relative w-3/5 h-24 border">
+								<span class="absolute top-2 left-8">guy</span>
+								<span class="absolute bottom-3 left-1/2 translate-x-[-50%]">guy@guymail.com</span>
+								<button class="absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white">invite</button>
+							</div>
+							<div class="flex-shrink-0 relative w-3/5 h-24 border">
+								<span class="absolute top-2 left-8">guy</span>
+								<span class="absolute bottom-3 left-1/2 translate-x-[-50%]">guy@guymail.com</span>
+								<button class="absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white">invite</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="flex justify-center items-center px-8 py-4 bg-primary">
+			<span class="text-white">&copy; 2022</span>
+		</footer>
+	</div>
+</body>
+
+</html>

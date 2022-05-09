@@ -23,6 +23,7 @@ window.onload = () => {
 
 		const request = await fetch(`${config.apiUrl}/register`, {
 			method: 'POST',
+			
 			headers: {
 				'Content-Type': 'application/json'
 			},

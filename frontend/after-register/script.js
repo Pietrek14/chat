@@ -24,10 +24,12 @@ window.onload = () => {
 
 		if (request.status === 200) {
 			alert('we sent you the email again');
+			return;
 		}
 
 		if (request.status === 409) {
 			alert(`you have to wait ${Math.floor(response.timeLeft)} seconds more before you can resend the email`);
+			return;
 		}
 
 		alert('something went wrong');

@@ -22,12 +22,7 @@ resendEmailRouter.post("/resendEmail", async (ctx: any) => {
 		return;
 	}
 
-	console.log(emailConfirmation.last_email.getTime());
-	console.log(new Date().getTime());
-
 	const delay = emailConfirmation.last_email.getTime() + EmailConfirmation.resendDelay - new Date().getTime();
-
-	console.log(delay);
 
 	if(delay > 0) {
 		ctx.response.status = 409;

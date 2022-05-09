@@ -24,10 +24,6 @@ app.use(oakCors({
     optionsSuccessStatus: 200,
 	credentials: true,
 }));
-// app.use((ctx, next) => {
-// 	ctx.response.headers.set("Access-Control-Allow-Credidentals", "true");
-// 	next();
-// });
 app.use(json);
 
 app.use(helloRouter.routes());

@@ -1,5 +1,6 @@
 import config from "../config.js";
 import alert from "../scripts/util/alert-box.js";
+import { getCookie } from "../scripts/util/cookie.js";
 
 window.onload = () => {
 	const loginForm = document.getElementById("login-form");

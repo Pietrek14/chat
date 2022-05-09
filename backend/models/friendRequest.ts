@@ -1,5 +1,7 @@
 import FriendRequest from "../interfaces/FriendRequest.ts";
 import dbClient from "../connection/db.ts";
+import emailClient from "../connection/email.ts";
+import { config, nanoid } from "../deps.ts";
 
 
 export default {
@@ -14,12 +16,31 @@ export default {
 	},
 
 
-	add:async ( { creation_date, requester, adressee } : FriendRequest ) => {
-		const result = await dbClient.execute(
-			`INSERT INTO friend_request (requester, adressee, creation_date) VALUES (?, ?, ?)`,
-			[requester, adressee, creation_date]
+	add:async ( { creation_date, requester, adressee} : FriendRequest ) => {
+		const code = nanoid(16);
+		await dbClient.execute(
+			`INSERT INTO friend_request (requester, adressee, code, creation_date) VALUES (?, ?, ?, ?)`,
+			[requester, adressee, code, creation_date]
 		);
 
-		return result;
-	}
+		return code;
+	},
+
+	sendMail: async(receiverEmail: string, code: string, friendsName: string) => {
+		const link_accept = `${config().FRONTEND}/acceptFriend/?code=${code}`;
+		const link_reject = `${config().FRONTEND}/rejectFriend/?code=${code}`;
+
+		
+		const emailBody = (await Deno.readTextFile("static/email/newFrien.html"))
+			.replace("{{friend_name}}", friendsName)
+			.replace("{{link_accept}}", link_accept)
+			.replace("{{link_reject}}", link_reject);
+
+		emailClient.send({
+			from: config().EMAIL_USER,
+			to: receiverEmail,
+			subject: "Wild frien appeared!",
+			html: emailBody,
+		});
+	},
 }

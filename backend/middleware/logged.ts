@@ -10,7 +10,6 @@ async function logged(ctx: AuthorizedContext, next: () => Promise<unknown>) {
 	}
 
 	const user = await Session.getUserByHash(session);
-
 	if(!user) {
 		ctx.response.status = 401;
 		return;

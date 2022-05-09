@@ -3,6 +3,7 @@ USE `chat`;
 CREATE TABLE friend_request (
 	requester INT NOT NULL,
 	adressee INT NOT NULL,
+	code CHAR(16) NOT NULL,
 	creation_date DATETIME NOT NULL,
 	lesser_user INT GENERATED ALWAYS AS (CASE WHEN requester < adressee THEN requester ELSE adressee END),
 	greater_user INT GENERATED ALWAYS AS (CASE WHEN requester < adressee THEN adressee ELSE requester END),

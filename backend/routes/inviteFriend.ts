@@ -8,13 +8,20 @@ import AuthorizedContext from '../util/authorizedContext.ts';
 const inviteFriendRouter = new Router();
 
 inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) => {
-	const { friendsEmail } = await ctx.request.body().value;
+	const { friendsEmail } = await ctx.request.body().value;''
+
 
 	if (!friendsEmail) {
 		ctx.response.status = 400;
 		ctx.response.body = { message: "Invalid request body. I need { friendsEmail }." };
 		return;
 	}
+
+	console.log(ctx.user?.id); 
+	console.log(ctx.user?.email); 
+	console.log("=======================");
+	console.log((await User.getByEmail(friendsEmail)).id);
+	console.log(friendsEmail);
 
 	if (!await User.getByEmail(friendsEmail)) {
 		ctx.response.status = 410;
@@ -34,19 +41,23 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 			ctx.response.body = { message: "Friend Already invited you!!!"};
 			return;
 		}
-	
 	}
-	
-	console.log("what?");
-	await FriendRequest.add({
+
+	const code = await FriendRequest.add({
 		requester: ctx.user?.id,
 		adressee: (await User.getByEmail(friendsEmail)).id,
 		creation_date: new Date()
 	});
 
+// TODO: add code to email bc now its kinda useless
+	if (ctx.user?.username) {
+		FriendRequest.sendMail(friendsEmail, code, ctx.user?.username);
+	}
+
 
 	ctx.response.status = 200;
-	ctx.response.body = { message: "You found a friend!!"};
+	ctx.response.body = { message: "You found a frien :)"};
+	// i think the friend request should show up somewhere in UI and there should be email send
 
 });
 

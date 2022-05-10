@@ -13,8 +13,6 @@ confirmEmailRouter.post("/confirmEmail", async (ctx) => {
 		return;
 	}
 
-	console.log(code);
-
 	const emailConfirmation = await EmailConfirmation.getByCode(code);
 
 	if (!emailConfirmation) {

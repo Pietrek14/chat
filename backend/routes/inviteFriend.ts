@@ -17,12 +17,6 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		return;
 	}
 
-	console.log(ctx.user?.id); 
-	console.log(ctx.user?.email); 
-	console.log("=======================");
-	console.log((await User.getByEmail(friendsEmail)).id);
-	console.log(friendsEmail);
-
 	if (!await User.getByEmail(friendsEmail)) {
 		ctx.response.status = 410;
 		ctx.response.body = { message: `User with email ${friendsEmail} not found. Friend gone?`};

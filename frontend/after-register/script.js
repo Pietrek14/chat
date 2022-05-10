@@ -4,8 +4,6 @@ import alert from "../scripts/util/alert-box.js";
 const params = new URLSearchParams(window.location.search);
 const email = params.get('email');
 
-console.log(email);
-
 window.onload = () => {
 	const resendEmailButton = document.getElementById('resend-email-button');
 

@@ -13,6 +13,7 @@ import resendEmailRouter from "./routes/resendEmail.ts";
 import sayNameRouter from "./routes/sayName.ts";
 import inviteFriendRouter from './routes/inviteFriend.ts';
 import logoutRouter from "./routes/logout.ts";
+import getInvitesRouter from "./routes/getInvites.ts";
 
 const PORT = config().PORT || 3000;
 const HOST = config().HOST || "127.0.0.1";
@@ -34,6 +35,7 @@ app.use(resendEmailRouter.routes());
 app.use(sayNameRouter.routes());
 app.use(inviteFriendRouter.routes());
 app.use(logoutRouter.routes());
+app.use(getInvitesRouter.routes());
 
 console.log(`Server running at ${HOST}:${PORT}`);
 

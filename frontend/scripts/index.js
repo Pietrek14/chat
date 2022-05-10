@@ -13,7 +13,7 @@ window.onload = async () => {
 		window.location.assign("./login/");
 	}
 
-	const body = await request.json();
+	// const body = await request.json();
 
-	console.log(body.name);
+	// console.log(body.name);
 };

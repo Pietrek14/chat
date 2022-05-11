@@ -10,4 +10,34 @@
 	.alert-box-active {
 		@apply top-1/2 translate-y-[-50%] opacity-100 !important;
 	}
+
+	/* INVITE */
+
+	.invite {
+		@apply flex justify-between p-4 gap-5 border-b-2 border-b-neutral-300;
+	}
+
+	.invite__header {
+		@apply flex gap-3;
+	}
+
+	.invite__conversation-avatar {
+		@apply flex items-center justify-center rounded-full w-10 h-10 bg-green-600;
+	}
+
+	.invite__requester {
+		@apply flex items-center text-sm;
+	}
+
+	.invite__requester-name {
+		@apply font-semibold;
+	}
+
+	.invite__options {
+		@apply flex items-center gap-3;
+	}
+
+	.invite__option {
+		@apply cursor-pointer;
+	}
 }

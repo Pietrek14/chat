@@ -17,12 +17,6 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		ctx.response.body = { message: "Invalid request body. I need { friendsEmail }." };
 		return;
 	}
-
-	console.log(ctx.user?.id); 
-	console.log(ctx.user?.email); 
-	console.log("=======================");
-	console.log((await User.getByEmail(friendsEmail)).id);
-	console.log(friendsEmail);
 	
 	if (!ctx.user?.email || !ctx.user?.username) {
 		return;

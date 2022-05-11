@@ -5,6 +5,14 @@ import { config, nanoid } from "../deps.ts";
 
 
 export default {
+	getByAdresseeId:async (adressee_id: number) => {
+		const result:FriendRequest[] = await dbClient.query(
+			`SELECT * FROM friend_request WHERE adressee = ?`,
+			[adressee_id]
+		);
+
+		return result;
+	},
 
 	checkIfFriendAlreadyInvitedYou:async (  requester: string, adressee: string ) => {
 		const result = await dbClient.query(

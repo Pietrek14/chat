@@ -15,6 +15,7 @@ import inviteFriendRouter from "./routes/inviteFriend.ts";
 import acceptFriendRouter from "./routes/acceptFriend.ts";
 import rejectFriendRouter from "./routes/rejectFriend.ts";
 import logoutRouter from "./routes/logout.ts";
+import getInvitesRouter from "./routes/getInvites.ts";
 
 const PORT = config().PORT || 3000;
 const HOST = config().HOST || "127.0.0.1";
@@ -38,6 +39,7 @@ app.use(inviteFriendRouter.routes());
 app.use(acceptFriendRouter.routes());
 app.use(rejectFriendRouter.routes());
 app.use(logoutRouter.routes());
+app.use(getInvitesRouter.routes());
 
 console.log(`Server running at ${HOST}:${PORT}`);
 

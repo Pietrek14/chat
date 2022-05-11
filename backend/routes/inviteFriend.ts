@@ -1,6 +1,7 @@
 import { Router } from '../deps.ts';
 import  User from '../models/user.ts'
 import FriendRequest from '../models/friendRequest.ts';
+import Friendship from '../models/friendship.ts';
 import logged from '../middleware/logged.ts';
 import AuthorizedContext from '../util/authorizedContext.ts';
 
@@ -22,6 +23,10 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 	console.log("=======================");
 	console.log((await User.getByEmail(friendsEmail)).id);
 	console.log(friendsEmail);
+	
+	if (!ctx.user?.email || !ctx.user?.username) {
+		return;
+	}
 
 	if (!await User.getByEmail(friendsEmail)) {
 		ctx.response.status = 410;
@@ -35,13 +40,20 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		return;
 	}
 
-	if(ctx.user?.email){
-		if(await FriendRequest.checkIfFriendAlreadyInvitedYou(ctx.user?.email, friendsEmail)) {
-			ctx.response.status = 200;
-			ctx.response.body = { message: "Friend Already invited you!!!"};
-			return;
-		}
+	console.log("here");
+	if(await Friendship.checkIfAleardyFriend(ctx.user?.email, friendsEmail)) {
+		ctx.response.status = 409;
+		ctx.response.body = { message: "This is your friend already. Dont worry :)"};
+		return;
 	}
+	console.log("here");
+
+	if(await FriendRequest.checkIfFriendAlreadyInvitedYou(ctx.user?.email, friendsEmail)) {
+		ctx.response.status = 200;
+		ctx.response.body = { message: "Friend Already invited you!!!"};
+		return;
+	}
+	
 
 	const code = await FriendRequest.add({
 		requester: ctx.user?.id,
@@ -50,9 +62,7 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 	});
 
 // TODO: add code to email bc now its kinda useless
-	if (ctx.user?.username) {
 		FriendRequest.sendMail(friendsEmail, code, ctx.user?.username);
-	}
 
 
 	ctx.response.status = 200;

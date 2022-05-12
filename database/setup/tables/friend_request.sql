@@ -10,6 +10,6 @@ CREATE TABLE friend_request (
 	PRIMARY KEY (requester, adressee),
 	FOREIGN KEY (requester) REFERENCES user(id),
 	FOREIGN KEY (adressee) REFERENCES user(id),
-	CONSTRAINT CK_friendship_self CHECK (requester <> adressee),
-	CONSTRAINT UQ_friendship_users_ordered UNIQUE (lesser_user, greater_user)
+	CONSTRAINT CK_friend_request_self CHECK (requester <> adressee),
+	CONSTRAINT UQ_friend_request_users_ordered UNIQUE (lesser_user, greater_user)
 );

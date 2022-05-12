@@ -24,7 +24,7 @@ export default {
 	},
 
 
-	add:async ( { creation_date, requester, adressee} : FriendRequest ) => {
+	add:async ( { creation_date, requester, adressee } : FriendRequest ) => {
 		const code = nanoid(16);
 		await dbClient.execute(
 			`INSERT INTO friend_request (requester, adressee, code, creation_date) VALUES (?, ?, ?, ?)`,
@@ -51,4 +51,27 @@ export default {
 			html: emailBody,
 		});
 	},
+
+	checkIfCodeBelongsToAdressee:async (  adressee: number, code: string ) => {
+		const result = await dbClient.query(
+			`SELECT * FROM friend_request WHERE adressee = ? AND code = ?`,
+			[adressee, code]
+		);
+
+		// i fucking love javascript
+		// i cant believe this is valid code
+		return !!result[0];
+	},
+
+	deleteFriendReqeust:async (  adressee: number, code: string ) => {
+		const result = await dbClient.execute(
+			`DELETE FROM friend_request WHERE adressee = ? AND code = ?`,
+			[adressee, code]
+		);
+		 
+		return result;
+	},
+
+
+	
 }

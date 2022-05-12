@@ -11,7 +11,9 @@ import registerRouter from "./routes/register.ts";
 import confirmEmailRouter from "./routes/confirmEmail.ts";
 import resendEmailRouter from "./routes/resendEmail.ts";
 import sayNameRouter from "./routes/sayName.ts";
-import inviteFriendRouter from './routes/inviteFriend.ts';
+import inviteFriendRouter from "./routes/inviteFriend.ts";
+import acceptFriendRouter from "./routes/acceptFriend.ts";
+import rejectFriendRouter from "./routes/rejectFriend.ts";
 import logoutRouter from "./routes/logout.ts";
 import getInvitesRouter from "./routes/getInvites.ts";
 
@@ -34,6 +36,8 @@ app.use(confirmEmailRouter.routes());
 app.use(resendEmailRouter.routes());
 app.use(sayNameRouter.routes());
 app.use(inviteFriendRouter.routes());
+app.use(acceptFriendRouter.routes());
+app.use(rejectFriendRouter.routes());
 app.use(logoutRouter.routes());
 app.use(getInvitesRouter.routes());
 

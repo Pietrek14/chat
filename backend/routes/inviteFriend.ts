@@ -34,17 +34,23 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		return;
 	}
 
-	console.log("here");
 	if(await Friendship.checkIfAleardyFriend(ctx.user?.email, friendsEmail)) {
 		ctx.response.status = 409;
 		ctx.response.body = { message: "This is your friend already. Dont worry :)"};
 		return;
 	}
-	console.log("here");
 
 	if(await FriendRequest.checkIfFriendAlreadyInvitedYou(ctx.user?.email, friendsEmail)) {
 		ctx.response.status = 200;
 		ctx.response.body = { message: "Friend Already invited you!!!"};
+		return;
+	}
+
+	// checking if you aready invited them by using the same function
+	// works the same, less work
+	if(await FriendRequest.checkIfFriendAlreadyInvitedYou(friendsEmail, ctx.user?.email)) {
+		ctx.response.status = 400;
+		ctx.response.body = { message: "Firend keeps ignoring you but they got your request, sorry :("};
 		return;
 	}
 	
@@ -55,14 +61,11 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		creation_date: new Date()
 	});
 
-// TODO: add code to email bc now its kinda useless
-		FriendRequest.sendMail(friendsEmail, code, ctx.user?.username);
-
+	FriendRequest.sendMail(friendsEmail, code, ctx.user?.username);
 
 	ctx.response.status = 200;
 	ctx.response.body = { message: "You found a frien :)"};
-	// i think the friend request should show up somewhere in UI and there should be email send
-
+	// i think the friend request should show up somewhere in UI and there should be email sent
 });
 
 

@@ -11,7 +11,6 @@ export default {
 			[user1, user2, user2, user1]
 		);
 
-		console.log(!!result);
 		return !!result[0];
 	},
 

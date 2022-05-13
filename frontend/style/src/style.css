@@ -40,4 +40,30 @@
 	.invite__option {
 		@apply cursor-pointer;
 	}
+
+	@keyframes invite-disappear {
+		0% {
+			@apply opacity-100;
+		}
+
+		100% {
+			@apply opacity-0;
+		}
+	}
+
+	.search-result {
+		@apply flex-shrink-0 relative w-3/5 h-24 border;
+	}
+
+	.search-result__name {
+		@apply absolute top-2 left-8;
+	}
+
+	.search-result__email {
+		@apply absolute bottom-3 left-1/2 translate-x-[-50%];
+	}
+
+	.search-result__invite-button {
+		@apply absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white;
+	}
 }

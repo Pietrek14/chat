@@ -1,8 +1,9 @@
 import config from '../config.js';
 import alert from '../scripts/util/alert-box.js';
 
-// GET PENDING INVITES
 const pending = document.getElementById('invites');
+const searchBar = document.getElementById('search-bar');
+const searchField = document.getElementById('search-field');
 
 async function getPending() {
 	const response = await fetch(`${config.apiUrl}/invites`, {
@@ -84,7 +85,7 @@ async function getPending() {
 		inviteReject.classList.add('invite__option');
 		inviteReject.src = '../img/svg/x.svg';
 
-		inviteReject.onclick = () => {
+		inviteReject.onclick = async () => {
 			// Reject the invite
 			const response = await fetch(`${config.apiUrl}/rejectFriend`, {
 				method: 'POST',
@@ -118,7 +119,94 @@ async function getPending() {
 	});
 }
 
+function updateSearchField(users) {
+	searchField.innerHTML = '';
+
+	users.forEach(user => {
+		const userDiv = document.createElement('div');
+
+		userDiv.classList.add('search-result');
+
+		searchField.appendChild(userDiv);
+
+		const userName = document.createElement('span');
+
+		userName.classList.add('search-result__name');
+		userName.innerText = user.name;
+
+		userDiv.appendChild(userName);
+
+		const userEmail = document.createElement('span');
+
+		userEmail.classList.add('search-result__email');
+		userEmail.innerText = user.email;
+
+		userDiv.appendChild(userEmail);
+
+		const userButton = document.createElement('button');
+
+		userButton.classList.add('search-result__invite-button');
+		userButton.innerText = 'invite';
+		userButton.onclick = async () => {
+			const response = await fetch(`${config.apiUrl}/inviteFriend`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					friendsEmail: user.email,
+				})
+			});
+
+			if(!response.ok) {
+				alert('something went wrong');
+				return;
+			}
+
+			userDiv.remove();
+
+			alert(`invite sent to ${user.name}`);
+		};
+
+		userDiv.appendChild(userButton);
+	});
+}
+
+searchBar.oninput = async () => {
+	const search = searchBar.value;
+
+	console.log(1);
+	
+	const response = await fetch(`${config.apiUrl}/search`, {
+		method: 'POST',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			search: search,
+		})
+	});
+
+	console.log(2);
+
+	if(!response.ok) {
+		alert('something went wrong');
+		return;
+	}
+
+	const body = await response.json();
+
+	const users = body.result;
+
+	console.log(users);
+
+	updateSearchField(users);
+};
+
 // i know this is stupid, but we are going to add more functions to window.onload event in the future
 window.onload = () => {
 	getPending();
+	searchBar.oninput();
 };

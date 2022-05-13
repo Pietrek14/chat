@@ -11,6 +11,7 @@
 	<title>Chat</title>
 	<link rel="stylesheet" href="../style/dist/style.css">
 	<script src="../scripts/confirm-login.js" type="module"></script>
+	<script src="../scripts/logout-button.js" type="module"></script>
 	<script src="script.js" type="module" defer></script>
 </head>
 
@@ -41,23 +42,7 @@
 							<input type="text" id="search-bar" class="w-full h-full text-center border text-sm"
 								placeholder="friend goes here">
 						</form>
-						<div class="flex-1 w-2/5 flex flex-col items-center gap-4 overflow-y-auto">
-							<div class="flex-shrink-0 relative w-3/5 h-24 border">
-								<span class="absolute top-2 left-8">guy</span>
-								<span class="absolute bottom-3 left-1/2 translate-x-[-50%]">guy@guymail.com</span>
-								<button class="absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white">invite</button>
-							</div>
-							<div class="flex-shrink-0 relative w-3/5 h-24 border">
-								<span class="absolute top-2 left-8">guy</span>
-								<span class="absolute bottom-3 left-1/2 translate-x-[-50%]">guy@guymail.com</span>
-								<button class="absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white">invite</button>
-							</div>
-							<div class="flex-shrink-0 relative w-3/5 h-24 border">
-								<span class="absolute top-2 left-8">guy</span>
-								<span class="absolute bottom-3 left-1/2 translate-x-[-50%]">guy@guymail.com</span>
-								<button class="absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white">invite</button>
-							</div>
-						</div>
+						<div id="search-field" class="flex-1 w-2/5 flex flex-col items-center gap-4 overflow-y-auto"></div>
 					</div>
 				</div>
 			</div>

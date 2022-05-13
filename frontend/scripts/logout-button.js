@@ -14,5 +14,5 @@ logoutButton.onclick = async () => {
 		return;
 	}
 
-	window.location.assign("login/");
+	window.location.assign(`${config.myUrl}/login`);
 };

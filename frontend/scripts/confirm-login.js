@@ -9,5 +9,5 @@ const request = await fetch(`${config.apiUrl}/name`, {
 });
 
 if(request.status !== 200) {
-	window.location.assign(`${config.myUrl}/frontend/login/`);
+	window.location.assign(`${config.myUrl}/login/`);
 }

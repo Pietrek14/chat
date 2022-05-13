@@ -45,6 +45,14 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		ctx.response.body = { message: "Friend Already invited you!!!"};
 		return;
 	}
+
+	// checking if you aready invited them by using the same function
+	// works the same, less work
+	if(await FriendRequest.checkIfFriendAlreadyInvitedYou(friendsEmail, ctx.user?.email)) {
+		ctx.response.status = 400;
+		ctx.response.body = { message: "Firend keeps ignoring you but they got your request, sorry :("};
+		return;
+	}
 	
 
 	const code = await FriendRequest.add({

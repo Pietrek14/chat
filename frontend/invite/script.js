@@ -1,4 +1,5 @@
 import config from '../config.js';
+import alert from '../scripts/util/alert-box.js';
 
 // GET PENDING INVITES
 const pending = document.getElementById('invites');
@@ -50,9 +51,31 @@ async function getPending() {
 		inviteAccept.classList.add('invite__option');
 		inviteAccept.src = '../img/svg/tick.svg';
 
-		inviteAccept.onclick = () => {
+		inviteAccept.onclick = async () => {
 			// Accept the invite
-			alert(`accept ${invite.code}`);
+			const response = await fetch(`${config.apiUrl}/acceptFriend`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					code: invite.code,
+				})
+			});
+
+			if(!response.ok) {
+				alert('something went wrong');
+				return;
+			}
+
+			// Remove the invite from the list
+			inviteDiv.style.animation = 'invite-disappear 0.5s forwards';
+			inviteDiv.onanimationend = () => {
+				inviteDiv.remove();
+			};
+
+			alert(`friend added: ${invite.requester_name}`);
 		};
 
 		inviteOptions.appendChild(inviteAccept);
@@ -63,7 +86,29 @@ async function getPending() {
 
 		inviteReject.onclick = () => {
 			// Reject the invite
-			alert(`reject ${invite.code}`);
+			const response = await fetch(`${config.apiUrl}/rejectFriend`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					code: invite.code,
+				})
+			});
+
+			if(!response.ok) {
+				alert('something went wrong');
+				return;
+			}
+
+			// Remove the invite from the list
+			inviteDiv.style.animation = 'invite-disappear 0.5s forwards';
+			inviteDiv.onanimationend = () => {
+				inviteDiv.remove();
+			};
+
+			alert(`friend rejected: ${invite.requester_name}`);
 		};
 
 		inviteOptions.appendChild(inviteReject);

@@ -53,14 +53,11 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		creation_date: new Date()
 	});
 
-// TODO: add code to email bc now its kinda useless
-		FriendRequest.sendMail(friendsEmail, code, ctx.user?.username);
-
+	FriendRequest.sendMail(friendsEmail, code, ctx.user?.username);
 
 	ctx.response.status = 200;
 	ctx.response.body = { message: "You found a frien :)"};
-	// i think the friend request should show up somewhere in UI and there should be email send
-
+	// i think the friend request should show up somewhere in UI and there should be email sent
 });
 
 

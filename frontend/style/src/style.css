@@ -40,4 +40,14 @@
 	.invite__option {
 		@apply cursor-pointer;
 	}
+
+	@keyframes invite-disappear {
+		0% {
+			@apply opacity-100;
+		}
+
+		100% {
+			@apply opacity-0;
+		}
+	}
 }

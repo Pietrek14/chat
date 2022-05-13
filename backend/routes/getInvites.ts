@@ -2,7 +2,6 @@ import { Router } from '../deps.ts';
 import logged from '../middleware/logged.ts';
 import AuthorizedContext from '../util/authorizedContext.ts';
 import FriendRequest from '../models/friendRequest.ts';
-import User from '../models/user.ts';
 
 const router = new Router();
 

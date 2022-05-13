@@ -1,4 +1,4 @@
-import Friendship from "../interfaces/Friendship.ts"
+// import Friendship from "../interfaces/Friendship.ts"
 import dbClient from "../connection/db.ts";
 // import { config, nanoid } from "../deps.ts";
 

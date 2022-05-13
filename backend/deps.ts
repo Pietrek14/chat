@@ -6,4 +6,16 @@ import { SMTPClient } from "https://deno.land/x/denomailer@1.0.0/mod.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
 import { nanoid } from "https://deno.land/x/nanoid@v3.0.0/mod.ts";
 
-export { Router, Application, Context, oakCors, sqlClient, config, SMTPClient, bcrypt, nanoid };
+
+// import { Socket } from 'https://cdn.esm.sh/v9/socket.io@3.0.3/esnext/socket.io.js';
+
+
+
+import { createRequire } from "https://deno.land/std/node/module.ts";
+
+const require = createRequire(import.meta.url);
+const socketIO = require("socket.io");
+
+const io = new socketIO.Server(3000);
+
+export { Router, Application, Context, oakCors, sqlClient, config, SMTPClient, bcrypt, nanoid, io };

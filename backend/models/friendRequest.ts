@@ -3,18 +3,20 @@ import dbClient from "../connection/db.ts";
 import emailClient from "../connection/email.ts";
 import { config, nanoid } from "../deps.ts";
 
-
 export default {
-	getByAdresseeId:async (adressee_id: number) => {
-		const result:FriendRequest[] = await dbClient.query(
-			`SELECT * FROM friend_request WHERE adressee = ?`,
+	getByAdresseeId: async (adressee_id: number) => {
+		const result: FriendRequest[] = await dbClient.query(
+			`SELECT user.email AS requester_email, user.username AS requester_name, code, creation_date AS date FROM friend_request INNER JOIN user ON user.id = friend_request.requester WHERE adressee = ? ORDER BY creation_date DESC`,
 			[adressee_id]
 		);
 
 		return result;
 	},
 
-	checkIfFriendAlreadyInvitedYou:async (  requester: string, adressee: string ) => {
+	checkIfFriendAlreadyInvitedYou: async (
+		requester: string,
+		adressee: string
+	) => {
 		const result = await dbClient.query(
 			`SELECT * FROM friend_request WHERE requester = (SELECT id FROM user WHERE email = ?) AND adressee = (SELECT id FROM user WHERE email = ?)`,
 			[adressee, requester]
@@ -23,8 +25,7 @@ export default {
 		return result[0];
 	},
 
-
-	add:async ( { creation_date, requester, adressee } : FriendRequest ) => {
+	add: async ({ creation_date, requester, adressee }: FriendRequest) => {
 		const code = nanoid(16);
 		await dbClient.execute(
 			`INSERT INTO friend_request (requester, adressee, code, creation_date) VALUES (?, ?, ?, ?)`,
@@ -34,12 +35,17 @@ export default {
 		return code;
 	},
 
-	sendMail: async(receiverEmail: string, code: string, friendsName: string) => {
+	sendMail: async (
+		receiverEmail: string,
+		code: string,
+		friendsName: string
+	) => {
 		const link_accept = `${config().FRONTEND}/acceptFriend/?code=${code}`;
 		const link_reject = `${config().FRONTEND}/rejectFriend/?code=${code}`;
 
-		
-		const emailBody = (await Deno.readTextFile("static/email/newFrien.html"))
+		const emailBody = (
+			await Deno.readTextFile("static/email/newFrien.html")
+		)
 			.replace("{{friend_name}}", friendsName)
 			.replace("{{link_accept}}", link_accept)
 			.replace("{{link_reject}}", link_reject);
@@ -52,7 +58,7 @@ export default {
 		});
 	},
 
-	checkIfCodeBelongsToAdressee:async (  adressee: number, code: string ) => {
+	checkIfCodeBelongsToAdressee: async (adressee: number, code: string) => {
 		const result = await dbClient.query(
 			`SELECT * FROM friend_request WHERE adressee = ? AND code = ?`,
 			[adressee, code]
@@ -63,15 +69,12 @@ export default {
 		return !!result[0];
 	},
 
-	deleteFriendReqeust:async (  adressee: number, code: string ) => {
+	deleteFriendReqeust: async (adressee: number, code: string) => {
 		const result = await dbClient.execute(
 			`DELETE FROM friend_request WHERE adressee = ? AND code = ?`,
 			[adressee, code]
 		);
-		 
+
 		return result;
 	},
-
-
-	
-}
+};

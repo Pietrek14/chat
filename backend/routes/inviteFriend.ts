@@ -34,13 +34,11 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		return;
 	}
 
-	console.log("here");
 	if(await Friendship.checkIfAleardyFriend(ctx.user?.email, friendsEmail)) {
 		ctx.response.status = 409;
 		ctx.response.body = { message: "This is your friend already. Dont worry :)"};
 		return;
 	}
-	console.log("here");
 
 	if(await FriendRequest.checkIfFriendAlreadyInvitedYou(ctx.user?.email, friendsEmail)) {
 		ctx.response.status = 200;

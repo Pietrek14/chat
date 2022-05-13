@@ -4,8 +4,6 @@ import config from '../config.js';
 const pending = document.getElementById('invites');
 
 async function getPending() {
-	console.log(1);
-
 	const response = await fetch(`${config.apiUrl}/invites`, {
 		method: 'GET',
 		credentials: 'include',
@@ -39,7 +37,7 @@ async function getPending() {
 
 		const inviteName = document.createElement('h3');
 		inviteName.classList.add('invite__requester-name');
-		inviteName.innerText = invite.requester.name;
+		inviteName.innerText = invite.requester_name;
 
 		inviteRequester.appendChild(inviteName);
 		inviteHeader.appendChild(inviteRequester);

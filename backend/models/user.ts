@@ -39,6 +39,25 @@ export default {
 		return result[0];
 	},
 
+	getLastMessages: async (id: number) => {
+		const result = await dbClient.query(
+			`SELECT content, author_user.id AS author_id, author_user.email AS author_email, author_user.username AS author_name, message.date AS send_date
+				FROM (
+					SELECT id, author, MIN(date) AS date
+						FROM message
+						WHERE recipent = ?
+						GROUP BY author
+				) AS recent_message, message
+				INNER JOIN user author_user
+					ON author_user.id = message.author
+				WHERE message.id = recent_message.id
+				ORDER BY send_date DESC`,
+			[id]
+		);
+
+		return result;
+	},
+
 	search: async (search: string, userId: number) => {
 		const result = await dbClient.query(
 			`SELECT friend.email AS email, friend.name AS name

@@ -66,4 +66,20 @@
 	.search-result__invite-button {
 		@apply absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white;
 	}
+
+	.conversation {
+		@apply flex p-4 gap-5 border-b-2 border-b-neutral-300;
+	}
+
+	.conversation__avatar {
+		@apply flex items-center justify-center rounded-full w-10 h-10 bg-green-600;
+	}
+
+	.conversation__content {
+		@apply flex flex-col text-sm;
+	}
+
+	.conversation__last-message {
+		@apply text-gray;
+	}
 }

@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="./style/dist/style.css">
 	<script src="scripts/confirm-login.js" type="module"></script>
 	<script src="scripts/logout-button.js" type="module" defer></script>
+	<script src="script.js" type="module" defer></script>
 </head>
 
 <body>
@@ -29,13 +30,11 @@
 		<main class="flex-1 flex overflow-hidden">
 			<div id="conversations"
 				class="flex flex-col content-start border-r-2 border-r-neutral-300 w-1/4 h-full overflow-y-auto">
-				<div class="conversation flex p-4 gap-5 border-b-2 border-b-neutral-300">
-					<div
-						class="conversation-avatar flex items-center justify-center rounded-full w-10 h-10 bg-green-600">
-					</div>
-					<div class="flex flex-col text-sm">
+				<div class="conversation">
+					<div class="conversation__avatar"></div>
+					<div class="conversation__content">
 						<h3>Joe</h3>
-						<span class="text-gray">Hello there</span>
+						<span class="conversation__last-message">Hello there</span>
 					</div>
 				</div>
 				<div class="conversation flex p-4 gap-5 border-b-2 border-b-neutral-300">

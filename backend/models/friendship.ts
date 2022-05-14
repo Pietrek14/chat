@@ -1,11 +1,7 @@
-// import Friendship from "../interfaces/Friendship.ts"
 import dbClient from "../connection/db.ts";
-// import { config, nanoid } from "../deps.ts";
-
-
 
 export default {
-	checkIfAleardyFriend: async ( user1: string, user2: string ) => {
+	checkIfAlreadyFriend: async ( user1: string, user2: string ) => {
 		const result = await dbClient.query(
 			`SELECT * FROM friendship WHERE user1 = (SELECT id FROM user WHERE email = ?) AND user2 = (SELECT id FROM user WHERE email = ?) UNION SELECT * FROM friendship WHERE user2 = (SELECT id FROM user WHERE email = ?) AND user1 = (SELECT id FROM user WHERE email = ?)`,
 			[user1, user2, user2, user1]

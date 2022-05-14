@@ -11,6 +11,5 @@ CREATE TABLE IF NOT EXISTS message (
 	FOREIGN KEY (author) REFERENCES user(id),
 	FOREIGN KEY (recipent) REFERENCES user(id),
 	FOREIGN KEY (reply) REFERENCES message(id),
-	CONSTRAINT CK_message_self CHECK (author <> recipent),
-	CONSTRAINT CK_message_between_friends CHECK (author IN (SELECT user1 FROM friendship WHERE user2 = recipent) OR author IN (SELECT user2 FROM friendship WHERE user1 = recipent))
+	CONSTRAINT CK_message_self CHECK (author <> recipent)
 );

@@ -34,7 +34,7 @@ inviteFriendRouter.post("/inviteFriend", logged ,async (ctx: AuthorizedContext) 
 		return;
 	}
 
-	if(await Friendship.checkIfAleardyFriend(ctx.user?.email, friendsEmail)) {
+	if(await Friendship.checkIfAlreadyFriend(ctx.user?.email, friendsEmail)) {
 		ctx.response.status = 409;
 		ctx.response.body = { message: "This is your friend already. Dont worry :)"};
 		return;

@@ -43,14 +43,14 @@ export default {
 		const result = await dbClient.query(
 			`SELECT content, author_user.id AS author_id, author_user.email AS author_email, author_user.username AS author_name, message.date AS send_date
 				FROM (
-					SELECT id, author, MIN(date) AS date
+					SELECT author, MAX(date) AS date
 						FROM message
 						WHERE recipent = ?
 						GROUP BY author
 				) AS recent_message, message
 				INNER JOIN user author_user
 					ON author_user.id = message.author
-				WHERE message.id = recent_message.id
+				WHERE message.date = recent_message.date AND message.author = recent_message.author
 				ORDER BY send_date DESC`,
 			[id]
 		);

@@ -43,7 +43,17 @@ window.onload = async () => {
 
 		const conversationLastMessage = document.createElement('p');
 		conversationLastMessage.classList.add('conversation__last-message');
-		conversationLastMessage.innerText = message.content;
+		if(message.content) {
+			conversationLastMessage.innerText = message.content;
+		} else {
+			conversationLastMessage.innerText = 'no message :(';
+			conversationLastMessage.classList.add('conversation__no-message');
+		}
 		conversationContent.appendChild(conversationLastMessage);
+
+		conversationDiv.onclick = () => {
+			// Enter the conversation
+			console.log(`talk with ${message.author_name}`);
+		};
 	});
 }

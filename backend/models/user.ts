@@ -41,18 +41,41 @@ export default {
 
 	getLastMessages: async (id: number) => {
 		const result = await dbClient.query(
-			`SELECT content, author_user.id AS author_id, author_user.email AS author_email, author_user.username AS author_name, message.date AS send_date
-				FROM (
-					SELECT author, MAX(date) AS date
-						FROM message
-						WHERE recipent = ?
-						GROUP BY author
-				) AS recent_message, message
-				INNER JOIN user author_user
-					ON author_user.id = message.author
-				WHERE message.date = recent_message.date AND message.author = recent_message.author
-				ORDER BY send_date DESC`,
-			[id]
+			`SELECT * 
+			FROM (
+				SELECT content, author_user.id AS author_id, author_user.email AS author_email, author_user.username AS author_name, message.date AS send_date
+					FROM (
+						SELECT author, MAX(date) AS date
+							FROM message
+							WHERE recipent = ?
+							GROUP BY author
+					) AS recent_message, message
+					INNER JOIN user author_user
+							ON author_user.id = message.author
+					WHERE message.date = recent_message.date AND message.author = recent_message.author
+				
+				UNION
+				
+				SELECT NULL AS content, friend.id AS author_id, friend.email AS author_email, friend.username AS author_name, creation_date AS send_date
+					FROM friendship
+					INNER JOIN user friend
+						ON friend.id = friendship.user1 AND friend.id != ?
+					LEFT JOIN message
+						ON message.author = friend.id AND message.recipent = ?
+					   WHERE message.id IS NULL
+				
+				UNION
+				
+				SELECT NULL AS content, friend.id AS author_id, friend.email AS author_email, friend.username AS author_name, creation_date AS send_date
+					FROM friendship
+					INNER JOIN user friend
+						ON friend.id = friendship.user2 AND friend.id != ?
+					LEFT JOIN message
+						ON message.author = friend.id AND message.recipent = ?
+					   WHERE message.id IS NULL
+			) last_messages
+			ORDER BY send_date DESC`,
+			[id, id, id, id, id]
 		);
 
 		return result;

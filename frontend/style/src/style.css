@@ -68,7 +68,7 @@
 	}
 
 	.conversation {
-		@apply flex p-4 gap-5 border-b-2 border-b-neutral-300;
+		@apply flex p-4 gap-5 border-b-2 border-b-neutral-300 cursor-pointer;
 	}
 
 	.conversation__avatar {
@@ -81,5 +81,9 @@
 
 	.conversation__last-message {
 		@apply text-gray;
+	}
+
+	.conversation__no-message {
+		@apply italic;
 	}
 }

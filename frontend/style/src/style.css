@@ -51,6 +51,8 @@
 		}
 	}
 
+	/* FRIEND SEARCH */
+
 	.search-result {
 		@apply flex-shrink-0 relative w-3/5 h-24 border;
 	}
@@ -67,8 +69,14 @@
 		@apply absolute right-3 top-1/2 translate-y-[-100%] w-24 bg-primary hover:bg-primary text-white;
 	}
 
+	/* CONVERSATION */
+
 	.conversation {
 		@apply flex p-4 gap-5 border-b-2 border-b-neutral-300 cursor-pointer;
+	}
+
+	.conversation.active {
+		@apply bg-neutral-100;
 	}
 
 	.conversation__avatar {
@@ -85,5 +93,27 @@
 
 	.conversation__no-message {
 		@apply italic;
+	}
+
+	/* MESSAGES */
+
+	.message-block {
+		@apply flex flex-col w-full text-sm;
+	}
+
+	.message-author {
+		@apply font-semibold;
+	}
+
+	.message-block__content {
+		@apply w-full flex flex-col pl-5;
+	}
+
+	.message-group {
+		@apply w-full flex justify-between cursor-pointer transition-all duration-700 hover:pl-2;
+	}
+
+	.message-time {
+		@apply hidden group-hover:block text-neutral-600;
 	}
 }

@@ -19,17 +19,20 @@ import getInvitesRouter from "./routes/getInvites.ts";
 import searchFriendRouter from "./routes/searchFriend.ts";
 import sendMessageRouter from "./routes/sendMessage.ts";
 import getLastMessagesRouter from "./routes/getLastMessages.ts";
+import readMessagesRouter from "./routes/readMessages.ts";
 
 const PORT = config().PORT || 3000;
 const HOST = config().HOST || "127.0.0.1";
 
 const app = new Application();
 
-app.use(oakCors({
-	origin: "http://127.0.0.1:5500",
-    optionsSuccessStatus: 200,
-	credentials: true,
-}));
+app.use(
+	oakCors({
+		origin: "http://127.0.0.1:5500",
+		optionsSuccessStatus: 200,
+		credentials: true,
+	})
+);
 app.use(json);
 
 app.use(helloRouter.routes());
@@ -46,6 +49,7 @@ app.use(getInvitesRouter.routes());
 app.use(searchFriendRouter.routes());
 app.use(sendMessageRouter.routes());
 app.use(getLastMessagesRouter.routes());
+app.use(readMessagesRouter.routes());
 
 console.log(`Server running at ${HOST}:${PORT}`);
 

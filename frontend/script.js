@@ -105,10 +105,15 @@ function addMessage(message, author) {
 	messageContent.appendChild(newMessage);
 }
 
-let currentConversator = null;
+let currentConversator = null,
+	updating = false;
 
 async function loadMessages(count = 30) {
 	if (allMessagesLoaded) return;
+
+	if (updating) return;
+
+	updating = true;
 
 	// it should be get, but chrome doesn't let me make a get request with a body
 	const response = await fetch(`${config.apiUrl}/readMessages`, {
@@ -131,12 +136,14 @@ async function loadMessages(count = 30) {
 
 	const messages = await response.json();
 
+	messagesNum += messages.length;
+
 	messages.forEach((message) => {
 		addMessageToFront(message, message.author);
 	});
 
-	messagesNum += messages.length;
 	allMessagesLoaded = messages.length < count;
+	updating = false;
 }
 
 function loadConversation(friendId) {

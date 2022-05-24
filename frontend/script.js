@@ -107,12 +107,8 @@ function addMessage(message, author) {
 
 let currentConversator = null;
 
-async function loadConversation(friendId) {
-	messagesDiv.innerHTML = "";
-	currentAuthor = null;
-	currentAuthorBack = null;
-	currentConversator = friendId;
-	messagesNum = 0;
+async function loadMessages(count = 30) {
+	if (allMessagesLoaded) return;
 
 	// it should be get, but chrome doesn't let me make a get request with a body
 	const response = await fetch(`${config.apiUrl}/readMessages`, {
@@ -123,7 +119,8 @@ async function loadConversation(friendId) {
 		},
 		body: JSON.stringify({
 			friend: currentConversator,
-			count: 30,
+			count: count,
+			offset: messagesNum,
 		}),
 	});
 
@@ -139,7 +136,17 @@ async function loadConversation(friendId) {
 	});
 
 	messagesNum += messages.length;
-	allMessagesLoaded = messages.length < 30;
+	allMessagesLoaded = messages.length < count;
+}
+
+function loadConversation(friendId) {
+	messagesDiv.innerHTML = "";
+	currentAuthor = null;
+	currentAuthorBack = null;
+	currentConversator = friendId;
+	messagesNum = 0;
+
+	loadMessages();
 }
 
 function enterConversation(conversationDiv, friendId) {
@@ -148,8 +155,6 @@ function enterConversation(conversationDiv, friendId) {
 	}
 	conversationDiv.classList.add("active");
 	activeConversation = conversationDiv;
-
-	console.log(friendId);
 
 	loadConversation(friendId);
 }
@@ -252,6 +257,20 @@ const init = async () => {
 			lastMessages[0].author_id
 		);
 	}
+
+	// Load more messages as the user scrolls up
+	messagesDiv.parentElement.onscroll = () => {
+		if (allMessagesLoaded) return;
+
+		// Get scroll ratio
+		const scrollRatio =
+			messagesDiv.parentElement.scrollTop /
+			messagesDiv.parentElement.scrollHeight;
+
+		if (scrollRatio < -0.3) {
+			loadMessages();
+		}
+	};
 };
 
 init();

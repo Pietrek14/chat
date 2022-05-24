@@ -6,7 +6,11 @@ import Message from "../models/message.ts";
 const router = new Router();
 
 router.post("/readMessages", logged, async (ctx: AuthorizedContext) => {
-	const { friend, count, offsetOptional } = await ctx.request.body().value;
+	const {
+		friend,
+		count,
+		offset: offsetOptional,
+	} = await ctx.request.body().value;
 
 	if (!friend || !count) {
 		ctx.response.status = 400;

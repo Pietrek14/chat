@@ -145,6 +145,7 @@ function loadConversation(friendId) {
 	currentAuthorBack = null;
 	currentConversator = friendId;
 	messagesNum = 0;
+	allMessagesLoaded = false;
 
 	loadMessages();
 }

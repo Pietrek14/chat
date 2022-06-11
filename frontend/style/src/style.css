@@ -114,6 +114,10 @@
 	}
 
 	.message-time {
-		@apply hidden group-hover:block text-neutral-600;
+		@apply hidden text-neutral-600;
+	}
+
+	.message-group:hover > .message-time {
+		@apply block;
 	}
 }

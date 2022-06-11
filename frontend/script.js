@@ -1,4 +1,5 @@
 import { alert } from "./scripts/util/alert-box.js";
+import { formatDate } from "./scripts/util/format-date.js";
 import config from "./config.js";
 
 const conversations = document.getElementById("conversations");
@@ -32,10 +33,10 @@ function createMessage(message) {
 	messageContent.innerText = message.content;
 	messageGroup.appendChild(messageContent);
 
-	// TODO: format date correctly
 	const messageTime = document.createElement("span");
 	messageTime.classList.add("message-time");
-	messageTime.innerText = message.date;
+	messageTime.innerText = formatDate(message.date);
+	messageGroup.appendChild(messageTime);
 
 	return messageGroup;
 }

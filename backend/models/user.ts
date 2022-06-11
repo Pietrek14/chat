@@ -71,7 +71,7 @@ export default {
 						ON friend.id = friendship.user2 AND friend.id != ?
 					LEFT JOIN message
 						ON message.author = friend.id AND message.recipent = ?
-					WHERE message.id IS NULL AND friendship.user1 = 8
+					WHERE message.id IS NULL AND friendship.user1 = ?
 			) last_messages
 			ORDER BY send_date DESC`,
 			[id, id, id, id, id, id, id]

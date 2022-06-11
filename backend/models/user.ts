@@ -9,10 +9,9 @@ export default {
 	 * @returns The found user.
 	 */
 	getById: async (id: number) => {
-		const result = await dbClient.query(
-			`SELECT * FROM user WHERE id = ?`,
-			[id]
-		);
+		const result = await dbClient.query(`SELECT * FROM user WHERE id = ?`, [
+			id,
+		]);
 
 		return result[0];
 	},
@@ -51,7 +50,7 @@ export default {
 							GROUP BY author
 					) AS recent_message, message
 					INNER JOIN user author_user
-							ON author_user.id = message.author
+						ON author_user.id = message.author
 					WHERE message.date = recent_message.date AND message.author = recent_message.author
 				
 				UNION
@@ -62,7 +61,7 @@ export default {
 						ON friend.id = friendship.user1 AND friend.id != ?
 					LEFT JOIN message
 						ON message.author = friend.id AND message.recipent = ?
-					   WHERE message.id IS NULL
+					WHERE message.id IS NULL AND friendship.user2 = ?
 				
 				UNION
 				
@@ -72,10 +71,10 @@ export default {
 						ON friend.id = friendship.user2 AND friend.id != ?
 					LEFT JOIN message
 						ON message.author = friend.id AND message.recipent = ?
-					   WHERE message.id IS NULL
+					WHERE message.id IS NULL AND friendship.user1 = 8
 			) last_messages
 			ORDER BY send_date DESC`,
-			[id, id, id, id, id]
+			[id, id, id, id, id, id, id]
 		);
 
 		return result;
@@ -100,7 +99,15 @@ export default {
 				LEFT JOIN friend_request fr
 					ON (fr.lesser_user=? AND fr.greater_user=friend.id) OR (fr.lesser_user=friend.id AND fr.greater_user=?)
 				WHERE fs.user1 IS NULL AND fr.requester IS NULL AND friend.id != ?`,
-			[`%${search}%`, `%${search}%`, userId, userId, userId, userId, userId]
+			[
+				`%${search}%`,
+				`%${search}%`,
+				userId,
+				userId,
+				userId,
+				userId,
+				userId,
+			]
 		);
 
 		return result;
@@ -121,8 +128,8 @@ export default {
 
 	/**
 	 * Hashes the password with a salt.
-	 * @param password 
-	 * @param salt 
+	 * @param password
+	 * @param salt
 	 * @returns The hashed password.
 	 */
 	hashPassword: async (password: string, salt: string) => {
@@ -130,7 +137,7 @@ export default {
 
 		try {
 			hash = await bcrypt.hash(password, salt);
-		} catch(e) {
+		} catch (e) {
 			console.log(e);
 		}
 
@@ -144,5 +151,5 @@ export default {
 		const salt = await bcrypt.genSalt();
 
 		return salt;
-	}
+	},
 };

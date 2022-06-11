@@ -1,5 +1,5 @@
 import { alert } from "./scripts/util/alert-box.js";
-import { formatDate } from "./scripts/util/format-date.js";
+import formatDate from "./scripts/util/format-date.js";
 import config from "./config.js";
 
 const conversations = document.getElementById("conversations");

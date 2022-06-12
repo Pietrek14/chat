@@ -77,4 +77,12 @@ export default {
 
 		return result;
 	},
+
+	accept: async (code: string) => {
+		await dbClient.query(`CALL accept_invite(?)`, [code]);
+	},
+
+	reject: async (code: string) => {
+		await dbClient.query(`CALL reject_invite(?)`, [code]);
+	},
 };

@@ -10,3 +10,21 @@ CREATE TABLE IF NOT EXISTS email_confirmation (
 	last_email TIMESTAMP NOT NULL,
 	PRIMARY KEY(id)
 );
+
+DELIMITER &&
+
+CREATE PROCEDURE confirm_user(IN _code CHAR(16))
+BEGIN
+	SELECT email, username, hash, signup_date INTO @email, @username, @hash, @signup_date FROM email_confirmation WHERE code = _code;
+
+	INSERT INTO user (email, username, hash, signup_date) VALUES (
+		@email,
+		@username,
+		@hash,
+		@signup_date
+	);
+
+	DELETE FROM email_confirmation WHERE code = _code;
+END &&
+
+DELIMITER ;

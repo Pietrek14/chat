@@ -1,4 +1,4 @@
-import EmailConfirmation from '../interfaces/EmailConfirmation.ts';
+import EmailConfirmation from "../interfaces/EmailConfirmation.ts";
 import dbClient from "../connection/db.ts";
 import emailClient from "../connection/email.ts";
 import { config, nanoid } from "../deps.ts";
@@ -58,21 +58,28 @@ export default {
 	},
 
 	deleteById(id: number) {
-		return dbClient.execute(`DELETE FROM email_confirmation WHERE id = ?`, [id]);
+		return dbClient.execute(`DELETE FROM email_confirmation WHERE id = ?`, [
+			id,
+		]);
 	},
 
 	deleteByEmail(email: string) {
-		return dbClient.execute(`DELETE FROM email_confirmation WHERE email = ?`, [email]);
+		return dbClient.execute(
+			`DELETE FROM email_confirmation WHERE email = ?`,
+			[email]
+		);
 	},
 
 	getLink(code: string) {
 		return `${config().FRONTEND}/confirm?code=${code}`;
 	},
 
-	sendMail: async(receiverEmail: string, code: string) => {
+	sendMail: async (receiverEmail: string, code: string) => {
 		const link = `${config().FRONTEND}/confirm/?code=${code}`;
 
-		const emailBody = (await Deno.readTextFile("static/email/registerConfirmation.html")).replace("{{link}}", link);
+		const emailBody = (
+			await Deno.readTextFile("static/email/registerConfirmation.html")
+		).replace("{{link}}", link);
 
 		emailClient.send({
 			from: config().EMAIL_USER,
@@ -86,5 +93,9 @@ export default {
 			`UPDATE email_confirmation SET last_email = ? WHERE email = ?`,
 			[new Date(), receiverEmail]
 		);
+	},
+
+	confirm: async (code: string) => {
+		await dbClient.execute(`CALL confirm_user(?)`, [code]);
 	},
 };

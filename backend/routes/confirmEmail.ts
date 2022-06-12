@@ -9,7 +9,9 @@ confirmEmailRouter.post("/confirmEmail", async (ctx) => {
 
 	if (!code) {
 		ctx.response.status = 400;
-		ctx.response.body = { message: "Invalid request body. I need { code }." };
+		ctx.response.body = {
+			message: "Invalid request body. I need { code }.",
+		};
 		return;
 	}
 
@@ -29,15 +31,7 @@ confirmEmailRouter.post("/confirmEmail", async (ctx) => {
 		return;
 	}
 
-	await User.add({
-		id: emailConfirmation.user_id,
-		email: emailConfirmation.email,
-		username: emailConfirmation.username,
-		hash: emailConfirmation.hash,
-		signup_date: emailConfirmation.signup_date,
-	});
-
-	await EmailConfirmation.deleteById(emailConfirmation.id);
+	await EmailConfirmation.confirm(code);
 
 	ctx.response.body = {
 		message: "Email confirmation successful",

@@ -1,1 +1,4 @@
-db_drop.bat && db_setup.bat
+@echo off
+
+CALL db_drop.bat
+CALL db_setup.bat
